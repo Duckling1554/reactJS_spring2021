@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+header{
+  background-color: #ffd3b4;
+  line-height: 20px;
+  text-align: center;
+
+  padding: 20px;
+
+  text-align: center;
+  font-family: Tahoma;
+}
+
+.task {
+  background-color: #d5ecc2;
+  color: black;
+  font-family: Tahoma;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+
+  border-radius: 10px;
+}
+
+.button1 {
+  font-family: Tahoma;
+  background-color: transparent;
+  margin:10px;
+  padding: 10px;
+  width: 20%;
+  border: 2px solid #ffaaa7;
+
+  border-radius: 10px;
+}
+
+.button1:hover {border: 
+  2px solid #FF4B47;}
+
+  .button1:focus {border:   
+    2px solid #98ddca;}
