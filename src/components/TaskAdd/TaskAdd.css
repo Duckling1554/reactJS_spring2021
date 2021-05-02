@@ -1,0 +1,20 @@
+.addTask {
+    background-color: #95bddc;
+    color: black;
+    font-family: Tahoma;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+
+  
+textarea {
+  border-radius: 10px;
+  outline: none;
+  resize: vertical;
+  margin:10px;
+  padding: 10px;
+  width: 30%;
+  border: 2px solid #fbc6d0;
+}
