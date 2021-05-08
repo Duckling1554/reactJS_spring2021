@@ -1,0 +1,10 @@
+.task {
+    background-color: #c2d1e5;
+    color: black;
+    font-family: Tahoma;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+  
+    border-radius: 10px;
+  }
