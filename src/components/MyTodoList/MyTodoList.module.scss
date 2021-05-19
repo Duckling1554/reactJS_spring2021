@@ -1,0 +1,91 @@
+.radios {
+  align-self: center;
+}
+
+.header{
+    line-height: 20px;
+    text-align: center;
+  
+    padding: 20px;
+  
+    text-align: center;
+    font-family: Tahoma;
+
+    &-theme-dark {
+      background-color: #221d2c;
+    }
+  
+    &-theme-light {
+      background-color: #fbc6d0;
+    }
+  }
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    &-theme-dark {
+      background-color: #0D0D0D;
+      color: white;
+    }
+  
+    &-theme-light {
+      background-color: white;
+    }
+  }
+
+.buttonAdd {
+    font-family: Tahoma;
+    font-weight: bold;
+    background-color: transparent;
+    margin:10px;
+    padding: 10px;
+    width: 20%;
+    border: 2px solid #fbc6d0;
+  
+    border-radius: 10px;
+
+    &:hover {border: 
+        2px solid #fb4c1f;
+    }
+
+    &:focus {border: 
+        2px solid #c2d1e5;
+    }
+
+    &-theme-dark {
+      color: white;
+    }
+  
+    &-theme-light {
+      color: black;
+    }
+  }
+
+.addTask {
+    font-family: Tahoma;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+
+    &-theme-dark {
+      background-color: #1b181d;
+      color: white;
+    }
+  
+    &-theme-light {
+      background-color: #95bddc;
+      color: black;
+    }
+  }
+
+.tasks {
+    text-align: center;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: stretch;
+
+  }

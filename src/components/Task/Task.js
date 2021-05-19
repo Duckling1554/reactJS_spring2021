@@ -1,7 +1,13 @@
-import './Task.css';
+import classnames from "classnames/bind"
+
 import React from 'react';
 import DoneButton from '../StatusButtons/DoneButton'
 import NotDoneButton from '../StatusButtons/NotDoneButton'
+
+import { ThemeContext } from "../MyTodoList/ThemeContext"
+
+import styles from "./Task.module.scss"
+const cx = classnames.bind(styles)
 
 const Task = ({id, name,  description, completed, handleStatus}) => {
     const handleClick = () => {
@@ -12,16 +18,19 @@ const Task = ({id, name,  description, completed, handleStatus}) => {
     if (completed) {
       button = <DoneButton onClick={handleClick} />
     } else {
-      button = <NotDoneButton onClick={handleClick} />
+      button = <NotDoneButton onClick={handleClick}/>
     } 
   
     return (
-      <div className='task'>
+      <ThemeContext.Consumer>
+        {(theme) =>
+      <div className={cx('task', `task-theme-${theme}`)}>
         <h3>{name}</h3>
-        <div>{description}</div>
+        <div word-wrap='break-word'>{description}</div>
         <div>{completed}</div>
         {button}
-      </div>
+      </div>}
+      </ThemeContext.Consumer>
     )
   }
   

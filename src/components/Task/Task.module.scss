@@ -1,0 +1,18 @@
+.task {
+    font-family: Tahoma;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    flex:45vw;
+    border-radius: 10px;
+
+    &-theme-dark {
+      background-color: #281f31;
+      color: white;
+    }
+  
+    &-theme-light {
+      background-color: #c2d1e5;
+      color: black;
+    }
+  }

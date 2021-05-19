@@ -1,7 +1,14 @@
-import './MyTodoList.css';
+import classnames from "classnames/bind"
+
+// import './MyTodoList.css';
 import React from 'react';
 import Task from '../Task/Task'
 import TaskAdd from '../TaskAdd/TaskAdd'
+
+import { DEFAULT_THEME, ThemeContext } from "./ThemeContext"
+
+import styles from "./MyTodoList.module.scss"
+const cx = classnames.bind(styles)
 
 class MyTodoList extends React.Component {
     state = {
@@ -55,10 +62,14 @@ class MyTodoList extends React.Component {
         name: '',
         description: '',
         completed: false,
-      }
+      },
+
+      theme: DEFAULT_THEME,
     }
-    
-    newId = 8
+
+    handleThemeChange = event => {
+      this.setState({ theme: event.target.value })
+    }
 
     handleChange = (event) => {
         const {value, name} = event.currentTarget
@@ -101,25 +112,44 @@ class MyTodoList extends React.Component {
     
     render () {
       return(
-        <div>
-          <header><h1>TO-DO</h1></header>
+        
+        <div className={cx('container', `container-theme-${this.state.theme}`)}>
+          <div className={cx("radios")}>
+            <div>
+              <input type="radio" name="theme" id="light" value="light"
+                checked={this.state.theme === "light"} onChange={this.handleThemeChange}
+              />
+              <label htmlFor="light">Я на стороне света</label>
+            </div>
 
-          <div className='addTask'>
+            <div>
+              <input type="radio" name="theme" id="dark" value="dark"
+                checked={this.state.theme === "dark"} onChange={this.handleThemeChange}
+              />
+              <label htmlFor="dark">Я на стороне тьмы</label>
+            </div>
+          </div>
+
+          <header className={cx('header', `header-theme-${this.state.theme}`)}><h1>TO-DO</h1></header>
+
+          <ThemeContext.Provider value={this.state.theme}>
+          <div className={cx('addTask', `addTask-theme-${this.state.theme}`)}>
             <div>
               <h2>Новые дела? Добавим в список!</h2>
-              <TaskAdd value={this.state.newTask.name} onChange={this.handleChange} 
+              <TaskAdd value={this.state.newTask.name} onChange={this.handleChange}
               placeholder='Название' name='name'/>
 
-              <TaskAdd value={this.state.newTask.description} onChange={this.handleChange} 
+              <TaskAdd value={this.state.newTask.description} onChange={this.handleChange}
               placeholder='Описание' name='description'/>
             </div>
-            <button className='buttonAdd' onClick={this.handleAddTaskClick}>Добавим</button>
+            <button className={cx('buttonAdd', `buttonAdd-theme-${this.state.theme}`)} onClick={this.handleAddTaskClick}>Добавим</button>
           </div>
 
-          <div>{this.state.tasks.map(task => <Task id={task.id} name={task.name} 
+          <div className={cx('tasks')}>{this.state.tasks.map(task => <Task id={task.id} name={task.name} 
           description={task.description} completed={task.completed} 
-          handleStatus={this.handleStatusChange}/>)}
+          handleStatus={this.handleStatusChange} />)}
           </div>
+          </ThemeContext.Provider>
         </div>
         )
     }
