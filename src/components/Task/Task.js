@@ -9,7 +9,8 @@ import { ThemeContext } from "../MyTodoList/ThemeContext"
 import styles from "./Task.module.scss"
 const cx = classnames.bind(styles)
 
-const Task = ({id, name,  description, completed, handleStatus}) => {
+const Task = ({task, handleStatus}) => {
+  const {id, name,  description, completed} = task
     const handleClick = () => {
       handleStatus(id)
     }

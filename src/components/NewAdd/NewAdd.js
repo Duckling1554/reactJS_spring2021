@@ -3,10 +3,10 @@ import React from 'react';
 
 import { ThemeContext } from "../MyTodoList/ThemeContext"
 
-import styles from "./TaskAdd.module.scss"
+import styles from "./NewAdd.module.scss"
 const cx = classnames.bind(styles)
 
-const TaskAdd = ({value, onChange, placeholder, name}) => {
+const NewAdd = ({value, onChange, placeholder, name}) => {
     return (
         <ThemeContext.Consumer>
         {(theme) =>
@@ -16,4 +16,4 @@ const TaskAdd = ({value, onChange, placeholder, name}) => {
     )
   }
 
-  export default TaskAdd;
+  export default NewAdd;
