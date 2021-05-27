@@ -32,31 +32,4 @@ function NormalizeState(projects) {
     return normilizedState
 }
 
-// projects = [
-//     {
-//       id: 1,
-//       name: 'Учебушка',
-//       tasks: [
-//         {
-//             id: 1,
-//             name: 'Подготовка к кр по ИАДу',
-//             description: 'Прослушать лекции, сделать конспекты, расписать вопросы, выжить',
-//             completed: false,
-//         },
-//       ]
-//     },
-//     {
-//       id: 2,
-//       name: 'Работа',
-//       tasks: [
-//         {
-//             id: 5,
-//             name: 'Работа - заявки',
-//             description: 'Отработать заявки на ПО',
-//             completed: true,
-//         },
-//       ]
-//     },
-//   ]
-
 export default NormalizeState;
