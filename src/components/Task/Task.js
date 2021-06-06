@@ -4,35 +4,48 @@ import React from 'react';
 import DoneButton from '../StatusButtons/DoneButton'
 import NotDoneButton from '../StatusButtons/NotDoneButton'
 
-import { ThemeContext } from "../MyTodoList/ThemeContext"
+import { connect } from "react-redux";
+import { handleStatusChange } from "../../actions/toDoListAction";
 
 import styles from "./Task.module.scss"
 const cx = classnames.bind(styles)
 
-const Task = ({task, handleStatus}) => {
-  const {id, name,  description, completed} = task
-    const handleClick = () => {
-      handleStatus(id)
-    }
+const mapStateToProps = (state) => ({
+  projectsById: state.toDoList.projectsById,
+  tasksById: state.toDoList.tasksById,
+  theme: state.theme.theme,
+});
+const mapDispatchToProps = (dispatch) => ({
+  dispatchStatusChange: (taskId) => dispatch(handleStatusChange(taskId))
+});
 
-    let button;
-    if (completed) {
-      button = <DoneButton onClick={handleClick} />
-    } else {
-      button = <NotDoneButton onClick={handleClick}/>
-    } 
-  
-    return (
-      <ThemeContext.Consumer>
-        {(theme) =>
-      <div className={cx('task', `task-theme-${theme}`)}>
-        <h3>{name}</h3>
-        <div word-wrap='break-word'>{description}</div>
-        <div>{completed}</div>
-        {button}
-      </div>}
-      </ThemeContext.Consumer>
-    )
+
+const task = ({
+  task,
+  theme,
+  dispatchStatusChange
+}) => {
+  const { id, name, description, completed } = task
+  const handleStatusChange = () => {
+    dispatchStatusChange(id)
   }
-  
+
+  let button;
+  if (completed) {
+    button = <DoneButton onClick={handleStatusChange} />
+  } else {
+    button = <NotDoneButton onClick={handleStatusChange} />
+  }
+
+  return (
+    <div className={cx('task', `task-theme-${theme}`)}>
+      <h3>{name}</h3>
+      <div word-wrap='break-word'>{description}</div>
+      <div>{completed}</div>
+      {button}
+    </div>
+  )
+}
+
+const Task = connect(mapStateToProps, mapDispatchToProps)(task);
 export default Task;
