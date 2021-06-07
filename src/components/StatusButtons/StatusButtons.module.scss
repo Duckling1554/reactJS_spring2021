@@ -1,0 +1,33 @@
+.button {
+    font-family: Tahoma;
+    font-weight: bold;
+    margin:10px;
+    padding: 10px;
+    height: 7vh;
+    border-radius: 10px;
+    &-theme-dark {
+      color: white;
+    }
+  
+    &-theme-light {
+      color: black;
+    }
+
+    &-NotDone {
+      background-color: transparent;
+      border: 2px solid #fb4c1f;
+
+      &:hover {
+        border: 2px solid #00AD74;
+      }
+    }
+
+    &-Done {
+      background-color: transparent;
+      border: 2px solid #00AD74;
+    
+      &:hover {
+        border: 2px solid #fb4c1f;
+      }
+    }
+  }
