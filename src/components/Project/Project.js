@@ -13,11 +13,13 @@ const mapStateToProps = (state) => ({
 });
 
 const project = ({ project, theme }) => {
-  const { id, name, tasksIds } = project
+  // const { id, name, tasksIds } = project
+  const { id, name, tasksCount } = project
   return (
     <Link to={`/projects/${id}/`} title="Тыкни, чтобы посмотреть все задачи" className={cx('project', `project-theme-${theme}`)}>
       <h3>{name}</h3>
-      <h4>Задач: {tasksIds.length}</h4>
+      {/* <h4>Задач: {tasksIds.length}</h4> */}
+      <h4>Задач: {tasksCount}</h4>
     </Link>
   )
 }

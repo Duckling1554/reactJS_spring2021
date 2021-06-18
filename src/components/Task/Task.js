@@ -27,7 +27,7 @@ const task = ({
 }) => {
   const { id, name, description, completed } = task
   const handleStatusChange = () => {
-    dispatchStatusChange(id)
+    dispatchStatusChange(task)
   }
 
   let button;
