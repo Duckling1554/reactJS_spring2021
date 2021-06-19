@@ -7,16 +7,30 @@
     text-align: center;
   
     padding: 20px;
+    margin: 5px 10px 0 10px;
+
+    border-radius: 10px;
   
     text-align: center;
     font-family: Tahoma;
+    border: 2px solid transparent;
+
+    text-decoration: none;
 
     &-theme-dark {
       background-color: #221d2c;
+      color: white;
     }
   
     &-theme-light {
       background-color: #fbc6d0;
+      color: black;
+    }
+
+    &-main {
+      &:hover {
+        border: 2px solid #fb4c1f;
+      }
     }
   }
 
@@ -89,3 +103,10 @@
     align-items: stretch;
 
   }
+
+.projects {
+  text-align: center;
+
+  display: flex;
+  flex-flow: column wrap;
+}
