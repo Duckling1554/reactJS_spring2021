@@ -34,9 +34,7 @@ export const handleAddProject = (newProject) => (dispatch) => {
 }
 
 export const handleAddTask = (newTask) => (dispatch) => {
-  console.log('check', newTask)
   newTask['priority'] = 1
-  console.log('check', newTask)
   return api.addTask(newTask).then(() => {
     dispatch({
       type: TASK_ADD,
