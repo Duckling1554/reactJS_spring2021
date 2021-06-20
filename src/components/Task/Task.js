@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
   theme: state.theme.theme,
 });
 const mapDispatchToProps = (dispatch) => ({
-  dispatchStatusChange: (taskId) => dispatch(handleStatusChange(taskId))
+  dispatchStatusChange: (projectId, id, name, description, completed) => dispatch(handleStatusChange(projectId, id, name, description, completed))
 });
 
 
@@ -25,9 +25,9 @@ const task = ({
   theme,
   dispatchStatusChange
 }) => {
-  const { id, name, description, completed } = task
+  const { id, name, description, completed, projectId } = task
   const handleStatusChange = () => {
-    dispatchStatusChange(task)
+    dispatchStatusChange(projectId, id, name, description, completed)
   }
 
   let button;

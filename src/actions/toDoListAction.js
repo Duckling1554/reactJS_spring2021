@@ -16,7 +16,6 @@ export const handleProjectsLoad = () => (dispatch) => {
 
 export const handleTasksLoad = (projectId) => (dispatch) => {
   return api.loadTasks(projectId).then((tasks) => {
-    console.log('action tasks', tasks)
     dispatch({
       type: TASKS_LOAD,
       payload: tasks
@@ -24,30 +23,17 @@ export const handleTasksLoad = (projectId) => (dispatch) => {
   })
 }
 
-export const handleAddProject = (newProject) => (dispatch) => {
-  return api.addProject(newProject).then(() => {
-    dispatch({
-      type: PROJECT_ADD,
-      payload: newProject
-    })
-  })
+export const handleAddProject = (name) => (dispatch) => {
+  return api.addProject(name).then(() => dispatch(handleProjectsLoad()))
 }
 
-export const handleAddTask = (newTask) => (dispatch) => {
-  newTask['priority'] = 1
-  return api.addTask(newTask).then(() => {
-    dispatch({
-      type: TASK_ADD,
-      payload: newTask
-    })
-  })
+export const handleAddTask = (name, description, projectId) => (dispatch) => {
+  return api.addTask(name, description, projectId)
+    .then(() => dispatch(handleProjectsLoad()))
+    .then(() => dispatch(handleTasksLoad(projectId)))
 }
 
-export const handleStatusChange = (task) => (dispatch) => {
-  return api.changeStatus(task).then(() => {
-    dispatch({
-      type: CHANGE_STATUS,
-      payload: task
-    })
-  })
+export const handleStatusChange = (projectId, id, name, description, completed) => (dispatch) => {
+  return api.changeStatus(projectId, id, name, description, completed)
+    .then(() => dispatch(handleTasksLoad(projectId)))
 }

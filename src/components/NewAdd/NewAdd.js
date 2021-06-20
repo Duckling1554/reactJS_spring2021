@@ -12,8 +12,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchAddProject: (newProject) => dispatch(handleAddProject(newProject)),
-    dispatchAddTask: (newTask) => dispatch(handleAddTask(newTask)),
+    dispatchAddProject: (name) => dispatch(handleAddProject(name)),
+    dispatchAddTask: (name, description, projectId) => dispatch(handleAddTask(name, description, projectId)),
 });
 
 class newAdd extends React.Component {
@@ -29,10 +29,10 @@ class newAdd extends React.Component {
     }
 
     handleAddProjectClick = () => {
-        this.props.dispatchAddProject(this.state.newProject);
+        this.props.dispatchAddProject(this.state.newProject.name);
     };
     handleAddTaskClick = () => {
-        this.props.dispatchAddTask(this.state.newTask);
+        this.props.dispatchAddTask(this.state.newTask.name, this.state.newTask.description, this.state.newTask.projectId);
     };
 
     handleProjectChange = (event) => {
@@ -76,7 +76,7 @@ class newAdd extends React.Component {
             case 'task': {
                 const placeholder1 = 'Название'
                 const name1 = 'name'
-                const placeholder2 = 'Описание'
+                const placeholder2 = 'Описание (обязательно)'
                 const name2 = 'description'
                 return (
                     <div>
@@ -95,7 +95,6 @@ class newAdd extends React.Component {
                 )
             }
         }
-
     }
 
     render() {

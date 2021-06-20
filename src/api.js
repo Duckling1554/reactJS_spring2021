@@ -4,19 +4,19 @@ const request = (url, method, body) => {
   return fetch(`${BASE_URL}${url}`, {
     method,
     headers: {
-      Token: 'Valera',
+      Token: 'Utochka1554',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  }).then(res => res.json())
+  })
 }
 
 const get = (url) => {
-  return request(url, 'GET')
+  return request(url, 'GET').then(res => res.json())
 }
 
 const post = (url, body) => {
-  return request(url, 'POST', body)
+  return request(url, 'POST', body).then(res => res.json())
 }
 
 const put = (url, body) => {
@@ -25,7 +25,6 @@ const put = (url, body) => {
 
 export const loadTasks = (projectId) => {
   return get(`/projects/${projectId}/tasks/`).then(res => {
-    console.log('kek')
     const tasks = []
     res.map((task, id) => {
       return tasks[id] = {
@@ -36,63 +35,51 @@ export const loadTasks = (projectId) => {
         projectId: projectId
       }
     })
-    console.log('api tasks', tasks)
     return tasks
   }).catch(err =>
-    console.log('something bad happens'))
+    console.log('Something bad happens, try to reload the page'))
 }
 
 export const loadProjects = () => {
   return get('/projects/').then(res => {
+
     const projects = []
     res.map((project, id) => {
       return projects[id] = {
         id: project.id,
         name: project.name,
         tasksCount: project.tasksCount,
-        tasksIds: [],
       }
     })
     return projects
-
-    // const tasks = []
-    // projects.map((project, project_id) => {
-    //   loadTasks(project.id).then(res => {
-    //     res.map((task, id) => {
-    //       projects[project_id].tasksIds = [...projects[project_id].tasksIds, id]
-    //       return tasks[id] = {
-    //         id: task.id,
-    //         name: task.name,
-    //         description: task.description,
-    //         completed: task.completed,
-    //         projectId: project.id
-    //       }
-    //     })
-    //   })
-    // })
-    // const state = {
-    //   projectsById: projects,
-    //   tasksById: tasks
-    // }
   })
-    .catch(err =>
-      console.log('something bad happens'))
+    .catch(err => console.log('Something bad happens, try to reload the page'))
 }
 
-export const addProject = (newProject) => {
+export const addProject = (name) => {
+  const newProject = {
+    'name': name
+  }
   return post('/projects/', newProject)
 }
 
-export const addTask = (newTask) => {
-  return post(`/projects/${newTask.projectId}/tasks/`, newTask)
+export const addTask = (name, description, projectId) => {
+  const newTask = {
+    'name': name,
+    'description': description,
+    'projectId': Number(projectId),
+    'completed': false
+  }
+  return post(`/projects/${newTask.projectId}/tasks/`, newTask).catch(err => console.log('You should input description'))
 }
 
-export const changeStatus = (task) => {
-  console.log('11111',task)
-  const projectId = task.projectId
-  const taskId = task.id
-  const status = task.completed
-  task.completed = !(status)
-  console.log('this is you', taskId)
-  return put(`/projects/${projectId}/tasks/${taskId}/`, task)
+export const changeStatus = (projectId, id, name, description, completed) => {
+  const updatedTask = {
+    'name': name,
+    'description': description,
+    'priority': 1,
+    'completed': !(completed),
+    'projectId': Number(projectId)
+  }
+  return put(`/projects/${projectId}/tasks/${id}/`, updatedTask)
 }
