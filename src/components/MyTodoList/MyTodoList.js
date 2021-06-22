@@ -3,11 +3,11 @@ import { BrowserRouter, Switch, Route, Link, Redirect} from "react-router-dom"
 
 import { connect } from "react-redux";
 import { handleThemeChange } from "../../actions/themeAction";
+import { handleProjectsLoad } from "../../actions/toDoListAction";
 
-import React from 'react';
-import Task from '../Task/Task'
-import Project from '../Project/Project'
-import NewAdd from '../NewAdd/NewAdd'
+import React, { useEffect } from 'react';
+import Projects from '../MyTodoList/Projects'
+import Tasks from '../MyTodoList/Tasks'
 
 import styles from "./MyTodoList.module.scss"
 const cx = classnames.bind(styles)
@@ -18,7 +18,8 @@ const mapStateToProps = (state) => ({
   theme: state.theme.theme,
 });
 const mapDispatchToProps = (dispatch) => ({
-  dispatchOnThemeChange: (theme) => dispatch(handleThemeChange(theme))
+  dispatchOnThemeChange: (theme) => dispatch(handleThemeChange(theme)),
+  dispatchProjectsLoad: () => dispatch(handleProjectsLoad()),
 });
 
 
@@ -27,10 +28,15 @@ const MyTodoList = ({
   tasksById,
   theme,
   dispatchOnThemeChange,
+  dispatchProjectsLoad
 }) => {
-  const handleThemeChange = (e) => {
-    dispatchOnThemeChange(e.target.value);
-  };
+
+  useEffect(() =>{
+    dispatchProjectsLoad()}, [dispatchProjectsLoad])
+
+  const handleThemeChange = (event) => {
+    dispatchOnThemeChange(event.target.value);   
+  }
 
   const Radios = () => {
     return (
@@ -48,57 +54,15 @@ const MyTodoList = ({
         </div>
       </div>)
   }
-
   const Header = () => {
     return (
       <Link to={`/projects`} title="Тыкни, чтобы вернуться к списку проектов"
         className={cx('header', 'header-main', `header-theme-${theme}`)}>
-        <header><h1>TO-DO</h1></header></Link>
+        <header><h1>TO-DO</h1></header>
+      </Link>
     )
   }
 
-  const Tasks = ({ match }) => {
-    let { projectId } = match.params
-    if (!Object.keys(projectsById).includes(projectId)) //проверяем, чтобы в url не было всяких глупостей
-    {
-      return <Redirect to="/projects" />
-    }
-    const project = projectsById[projectId]
-    const { tasksIds } = project
-    return (
-      <div>
-        <header className={cx('header', `header-theme-${theme}`)}>
-          <h2>Мои задачи по: {projectsById[projectId].name}</h2>
-        </header>
-
-        <div className={cx('addTask', `addTask-theme-${theme}`)}>
-          <div>
-            <h2>Новые дела? Добавим в список!</h2>
-            <NewAdd type='task' projectId={projectId} />
-          </div>
-        </div>
-
-        <div className={cx('tasks')}>{tasksIds.map(taskId => <Task task={tasksById[taskId]}/>)}
-        </div>
-      </div>)
-  }
-
-  const Projects = () => {
-    return (
-      <div>
-        <header className={cx('header', `header-theme-${theme}`)}><h2>Мои проекты</h2></header>
-
-        <div className={cx('addTask', `addTask-theme-${theme}`)}>
-          <h2>Новые проекты? Добавим в список!</h2>
-          <NewAdd type='project' projectId={0} />
-        </div>
-
-        <div className={cx('projects')}>{Object.keys(projectsById).map(projectId =>
-          <Project project={projectsById[projectId]} />)}
-        </div>
-
-      </div>)
-  }
   return (
     <BrowserRouter>
       <div className={cx('container', `container-theme-${theme}`)}>
